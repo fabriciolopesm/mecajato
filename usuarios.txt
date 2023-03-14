@@ -3,3 +3,4 @@ git status
 git add .
 git commit -m 'comentário'
 git push -u origin master
+git pull origin master

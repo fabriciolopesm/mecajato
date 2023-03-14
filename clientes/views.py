@@ -4,6 +4,7 @@ from .models import Cliente, Carro
 import re
 from django.core import serializers
 import json
+from django.views.decorators.csrf import csrf_exempt
 
 def clientes(request):
     if request.method == "GET":
@@ -45,6 +46,20 @@ def clientes(request):
 
 def att_cliente(request):
     id_cliente = request.POST.get('id_cliente')
+
     cliente = Cliente.objects.filter(id=id_cliente)
-    cliente_json = json.loads(serializers.serialize('json', cliente))[0]['fields']
-    return JsonResponse(cliente_json)
+    carros = Carro.objects.filter(cliente=cliente[0])
+
+    clientes_json = json.loads(serializers.serialize('json', cliente))[0]['fields']
+    carros_json = json.loads(serializers.serialize('json', carros))
+    carros_json = [{'fields': carro['fields'], 'id': carro['pk']} for carro in carros_json]
+    data = {'cliente': clientes_json, 'carros': carros_json}
+    return JsonResponse(data)
+
+@csrf_exempt
+def update_carro(request, id):
+    nome_carro = request.POST.get('carro')
+    placa = request.POST.get('placa')
+    ano = request.POST.get('ano')
+
+    return HttpResponse(nome_carro)
