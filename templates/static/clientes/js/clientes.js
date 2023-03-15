@@ -53,7 +53,7 @@ function dados_cliente(){
         for(i=0; i<data['carros'].length; i++){
             console.log(data['carros'][i]['fields']['carro'])
 
-            div_carros.innerHTML += "<form action='/clientes/update_carro/" + data['carros'][i]['id'] + "' method=''>\
+            div_carros.innerHTML += "<form action='/clientes/update_carro/" + data['carros'][i]['id'] + "' method='POST'>\
                 <div class='row'>\
                     <div class='col-md'>\
                         <input class='form-control' type='text' name='carro' value='" + data['carros'][i]['fields']['carro'] + "'>\
@@ -66,6 +66,10 @@ function dados_cliente(){
                     </div>\
                     <div class='col-md'>\
                         <input class='btn btn-success' type='submit' value='Salvar'>\
+                    </div>\
+                    </form>\
+                    <div class='col-md'>\
+                        <a class='btn btn-danger' href='/clientes/excluir_carro/" + data['carros'][i]['id'] + "'>EXCLUIR</a>\
                     </div>\
                 </div><br>"
         }
