@@ -43,6 +43,8 @@ function dados_cliente(){
     }).then(function(data){
         aux = document.getElementById('form-att-cliente')
         aux.style.display = 'block'
+        id = document.getElementById('id')
+        id.value = data['cliente_id']
         document.getElementById('nome').value = data['cliente']['nome']
         document.getElementById('sobrenome').value = data['cliente']['sobrenome']
         document.getElementById('email').value = data['cliente']['email']
